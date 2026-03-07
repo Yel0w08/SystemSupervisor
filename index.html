@@ -1,39 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="style.css">
-<meta charset="UTF-8">
-<title>Yel0w's System Supervisor</title>    
-<script src="script.js"></script>
-<link rel="icon" href="assets/Images/WebSiteIcon.png">
 <head>
+    <meta charset="UTF-8">
+    <title>Yel0w's System Supervisor</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="assets/Images/WebSiteIcon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="script.js"></script>
+</head>
+<body>
 <header>
-
 <nav>
-
-    
 </nav>
 </header>
-
-<body>
 <h1 class="TitleYellow">System Supervisor</h1>
-<div class="SystemsStatus"> 
-<h1>
-     
-</h1>
-<p class="SystemsStatus">Portfolio [yel0w.fr]</p>
+<div class="SystemsStatus">
+    <p class="SystemsStatus">Portfolio [yel0w.fr]</p>
+    <p id="pingDisplay">Ping/Latency: Calculating...</p>
+</div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
-    var ping = new Date;
-
+function checkPing(url) {
+    var ping = new Date();
     $.ajax({
-        url: "yel0w.fr",
-        cache:false,
-        success: function(output){ 
-            ping = new Date - ping;
-            Console.log("Ping/Latency: " + ping);
-            <p>Ping/Latency: " + ping + "ms</p>
+        url: url,
+        cache: false,
+        success: function(output){
+            var pingPortfolio = new Date() - ping;
+            console.log("Ping/Latency for " + url + ": " + pingPortfolio + " ms");
+            $("#pingDisplay").text("Ping/Latency: " + pingPortfolio + " ms");
         }
     });
+}
+
 </script>
-</div>
+</body>
+</html>
