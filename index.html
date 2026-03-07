@@ -15,12 +15,13 @@
 </header>
 <h1 class="TitleYellow">System Supervisor</h1>
 <div class="SystemsStatus">
-    <p class="SystemsStatus">Portfolio [yel0w.fr]</p>
-    <p id="pingDisplay">Ping/Latency: Calculating...</p>
+    <p id="pingDisplay">Portfolio [yel0w.fr] : Calculating...</p>
+    <p id="pingDisplay2">L'url du site : Calculating...</p>
 </div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
-function checkPing(url) {
+function checkPing(url, name) {
+    var displayId = (name === "Portfolio [yel0w.fr]") ? "pingDisplay" : "pingDisplay2";
     var ping = new Date();
     $.ajax({
         url: url,
@@ -28,10 +29,20 @@ function checkPing(url) {
         success: function(output){
             var pingPortfolio = new Date() - ping;
             console.log("Ping/Latency for " + url + ": " + pingPortfolio + " ms");
-            $("#pingDisplay").text("Ping/Latency: " + pingPortfolio + " ms");
+            $("#" + displayId).css("color", "lightgreen").text(name + " : Online - Ping: " + pingPortfolio + " ms");
+        },
+        error: function(){
+            console.log("Server " + url + " is unreachable");
+            $("#" + displayId).css("color", "red").text(name + " : Offline");
         }
     });
 }
+checkPing("https://yel0w.fr", "Portfolio [yel0w.fr]"); // initial check
+checkPing("https://Yel0w.com", "Portfolio [yel0w.com]"); 
+setInterval(function() { 
+    checkPing("https://yel0w.fr", "Portfolio [yel0w.fr]"); 
+    checkPing("https://Yel0w.com", "Portfolio [yel0w.com]"); 
+}, 5000); // refresh every 5 seconds
 
 </script>
 </body>
