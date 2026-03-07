@@ -18,7 +18,21 @@
 <body>
 <h1 class="TitleYellow">System Supervisor</h1>
 <div class="SystemsStatus"> 
-<h3>Systems Status : </h3>
+<h1>
+     
+</h1>
+<p class="SystemsStatus">Portfolio [yel0w.fr]</p>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    var ping = new Date;
 
-<p class="SystemsStatus"></p>
+    $.ajax({
+        url: "yel0w.fr",
+        cache:false,
+        success: function(output){ 
+            ping = new Date - ping;
+            Console.log("Ping/Latency: " + ping);
+        }
+    });
+</script>
 </div>
