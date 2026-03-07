@@ -20,30 +20,34 @@
 </div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
-function checkPing(url, name) {
-    var displayId = (name === "Portfolio [yel0w.fr]") ? "pingDisplay" : "pingDisplay2";
+var sites = [
+    {url: "https://yel0w.fr", name: "Portfolio [yel0w.fr]", displayId: "pingDisplay"},
+    {url: "https://Yel0w.com", name: "Portfolio [yel0w.com]", displayId: "pingDisplay2"}
+];
+
+function checkPing(site) {
     var ping = new Date();
     $.ajax({
-        url: url,
+        url: site.url,
         cache: false,
         success: function(output){
             var pingPortfolio = new Date() - ping;
-            console.log("Ping/Latency for " + url + ": " + pingPortfolio + " ms");
-            $("#" + displayId).css("color", "lightgreen").text(name + " : Online - Ping: " + pingPortfolio + " ms");
+            console.log("Ping/Latency for " + site.url + ": " + pingPortfolio + " ms");
+            $("#" + site.displayId).css("color", "lightgreen").text(site.name + " : Online - Ping: " + pingPortfolio + " ms");
         },
         error: function(){
-            console.log("Server " + url + " is unreachable");
-            $("#" + displayId).css("color", "red").text(name + " : Offline");
+            console.log("Server " + site.url + " is unreachable");
+            $("#" + site.displayId).css("color", "red").text(site.name + " : Offline");
         }
     });
 }
-checkPing("https://yel0w.fr", "Portfolio [yel0w.fr]"); // initial check
-checkPing("https://Yel0w.com", "Portfolio [yel0w.com]"); 
-setInterval(function() { 
-    checkPing("https://yel0w.fr", "Portfolio [yel0w.fr]"); 
-    checkPing("https://Yel0w.com", "Portfolio [yel0w.com]"); 
-}, 5000); // refresh every 5 seconds
 
+function checkAllPings() {
+    sites.forEach(site => checkPing(site));
+}
+
+checkAllPings(); // initial check
+setInterval(checkAllPings, 5000); // refresh every 5 seconds
 </script>
 </body>
 </html>
