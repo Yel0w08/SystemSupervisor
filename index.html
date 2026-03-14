@@ -2,52 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Yel0w's System Supervisor</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="assets/Images/WebSiteIcon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="script.js"></script>
+    <title>System Supervisor</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-<nav>
-</nav>
-</header>
-<h1 class="TitleYellow">System Supervisor</h1>
-<div class="SystemsStatus">
-    <p id="pingDisplay">Portfolio [yel0w.fr] : Calculating...</p>
-    <p id="pingDisplay2">Portfolio [yel0w.com] : Calculating...</p>
-</div>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script>
-var sites = [
-    {url: "https://yel0w.fr", name: "Portfolio [yel0w.fr]", displayId: "pingDisplay"},
-    {url: "https://Yel0w.com", name: "Portfolio [yel0w.com]", displayId: "pingDisplay2"}
-];
+    <h1 class="TitleYellow">System Supervisor</h1>
+    <p>Monitoring websites for uptime and response times.</p>
 
-function checkPing(site) {
-    var ping = new Date();
-    $.ajax({
-        url: site.url,
-        cache: false,
-        success: function(output){
-            var pingPortfolio = new Date() - ping;
-            console.log("Ping/Latency for " + site.url + ": " + pingPortfolio + " ms");
-            $("#" + site.displayId).css("color", "lightgreen").text(site.name + " : Online - Ping: " + pingPortfolio + " ms");
-        },
-        error: function(){
-            console.log("Server " + site.url + " is unreachable");
-            $("#" + site.displayId).css("color", "red").text(site.name + " : Offline");
-        }
-    });
-}
+    <div id="supervisor">
+        <div class="site" data-url="https://yel0w.fr/">
+            <h2>https://yel0w.fr/</h2>
+            <p>Status: <span id="status-yel0w">Checking...</span></p>
+            <p>Response Time: <span id="time-yel0w">-</span></p>
+            <p>Last Checked: <span id="last-yel0w">-</span></p>
+        </div>
 
-function checkAllPings() {
-    sites.forEach(site => checkPing(site));
-}
+        <div class="site" data-url="https://tealib.yel0w.fr/">
+            <h2>https://tealib.yel0w.fr/</h2>
+            <p>Status: <span id="status-tealib">Checking...</span></p>
+            <p>Response Time: <span id="time-tealib">-</span></p>
+            <p>Last Checked: <span id="last-tealib">-</span></p>
+        </div>
+    </div>
 
-checkAllPings(); // initial check
-setInterval(checkAllPings, 5000); // refresh every 5 seconds
-</script>
+    <script src="supervisor.js"></script>
 </body>
 </html>

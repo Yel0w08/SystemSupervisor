@@ -55,7 +55,7 @@ background: #000000;
 .Link {
   color: #ffd900;
 font-family: JetbrainMonoNerdFontSemiBold; 
-underline: none;
+text-decoration: none;
 cursor: pointer;
 }
 
@@ -108,4 +108,19 @@ cursor: pointer;
 
 #pingDisplay2 {
   white-space: nowrap;
+}
+
+#supervisor {
+  margin: 20px;
+}
+
+.site {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #333;
+  background-color: #111;
+}
+
+.site h2 {
+  margin-top: 0;
 }
